@@ -1,0 +1,75 @@
+M400;Clear buffer
+G60 S0; Save position in slot 0
+M400;Clear buffer
+M104 S100 T0;
+M104 S100 T1;
+M400;
+T[next_extruder];
+M400;
+M104 S[temperature[next_extruder]] T[next_extruder]; Set target hotend temp
+M104 S([temperature[next_extruder]] - 50) T[previous_extruder]; Set idle hotend temp
+
+M400;
+M400; Clear buffer
+M211 S0; Disable soft endstops
+M400; Clear buffer
+G91; Relative movement
+M400; Clear buffer
+G1 Z10 F2000; Lift Z 10mm
+M400;
+G90; Absolute movement;
+M400;Clear buffer
+G0 Y-13.75 F5400; Move to Y
+
+M400;
+G0 X163 F5400; Move to X
+M400;
+G0 Z8 F2000; Move to Z
+M400;
+M109 S[temperature[next_extruder]] T[next_extruder]; Set target hotend temp
+M400;Clear buffer
+G91; Relative positioning
+M83; Relative E
+G1 E20 F120; Extrude
+M82; Absolute E
+M400; Clear buffer
+G90; Absolute;
+G1 X200 F5400; Wipe
+M400;Clear buffer
+G1 X163 F5400; Wipe
+M400; clear buffer
+G1 X200 F5400; Wipe
+M400;Clear buffer
+G1 X163 F5400; Wipe
+M400; clear buffer
+G91; Relative movement
+M400; Clear buffer
+G1 Z10 F2000; Lift Z 10mm
+M400;
+G90; Absolute movement;
+M400;Clear buffer
+G1 X30 F5400;
+M400; Clear buffer
+G61 S0 Z F2000; Restore Z
+M400; Clear buffer
+G91; Relative
+M400; Clear buffer
+G0 Z5 F2000; Move nozzle to Z+5 so it does not crash
+M400; Clear buffer
+G90; Absolute
+M400;
+G61 S0 Y F5400 S0; Restore Y
+M400;
+G61 S0 X F5400; Restore X
+M400; Clear buffer
+M211 S1; enable soft endstops
+M400; Clear buffer
+G90; Absolute positioning
+M400;
+;G92 E0.0
+M400;
+G61 S0 Z F2000; Restore Z position
+M400;
+;G92 E0.0
+M400;
+M83; E relative
